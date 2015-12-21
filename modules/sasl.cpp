@@ -215,6 +215,8 @@ class CSASLMod : public CModule {
     EModRet OnRaw(CString& sLine) override {
         if (sLine.Token(0).Equals("AUTHENTICATE")) {
             Authenticate(sLine.Token(1, true));
+        } else if (sLine.Token(1).Equals("AUTHENTICATE")) {
+            Authenticate(sLine.Token(2, true));
         } else if (sLine.Token(1).Equals("903")) {
             /* SASL success! */
             GetNetwork()->GetIRCSock()->ResumeCap();
